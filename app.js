@@ -1,8 +1,5 @@
 let autos = require("./autos");
 
-//console.log(autos);
-//console.log(concesionaria.autos[1].marca);
-
 let concesionaria = {
   autos: autos,
   buscarAuto: function (patente) {
@@ -10,6 +7,15 @@ let concesionaria = {
       return e.patente == patente;
     });
   },
+  venderAuto: function (patente) {
+    let aVender = [];
+    aVender = this.buscarAuto(patente);
+    aVender[0].vendido = true;
+  },
+  autosParaLaVenta: function () {
+    return autos.filter(function (e) {
+      return e.vendido == false;
+    });
+  },
 };
-
-console.log(concesionaria.buscarAuto("APL123"));
+console.log(concesionaria.autosParaLaVenta());
