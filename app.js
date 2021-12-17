@@ -17,5 +17,12 @@ let concesionaria = {
       return e.vendido == false;
     });
   },
+  autosNuevos: function () {
+    let vendibles = this.autosParaLaVenta();
+    return vendibles.filter(function (e) {
+      return e.km < 100;
+    });
+  },
 };
-console.log(concesionaria.autosParaLaVenta());
+
+console.log(concesionaria.autosNuevos());
