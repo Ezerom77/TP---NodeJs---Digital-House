@@ -2,21 +2,27 @@ let autos = require("./autos");
 
 let persona1 = {
   nombre: "juan",
-  capacidadDePagoEnCuotas: 100000,
-  capacidadDePagoTotal: 100000000,
+  capacidadDePagoEnCuotas: 7200,
+  capacidadDePagoTotal: 100000,
 };
 
 let concesionaria = {
   autos: autos,
   buscarAuto: function (patente) {
-    return autos.filter(function (e) {
+    let auto = this.autos.filter(function (e) {
       return e.patente == patente;
     });
+    if (auto.length == 0) {
+      return null;
+    } else {
+      return auto[0];
+    }
   },
+
   venderAuto: function (patente) {
     let aVender = [];
     aVender = this.buscarAuto(patente);
-    aVender[0].vendido = true;
+    aVender.vendido = true;
   },
   autosParaLaVenta: function () {
     return autos.filter(function (e) {
@@ -29,6 +35,7 @@ let concesionaria = {
       return e.km < 100;
     });
   },
+
   listaDeVentas: function () {
     let precios = [];
     let vendidos = autos.filter(function (e) {
@@ -50,10 +57,21 @@ let concesionaria = {
       auto.precio / auto.cuotas <= persona.capacidadDePagoEnCuotas
     ) {
       return true;
+    } else {
+      return false;
     }
+  },
+  autosQuePuedeComprar: function (persona) {
+    let autosVendibles = this.autosParaLaVenta();
+    let puede = [];
+    for (a of autosVendibles) {
+      if (this.puedeComprar(a, persona) == true) {
+        puede.push(a);
+      }
+    }
+    return puede;
   },
 };
 
-// console.log(concesionaria.totalDeVentas());
-// concesionaria.totalDeVentas();
-console.log(concesionaria.puedeComprar(autos[0], persona1));
+// concesionaria.autosQuePuedeComprar(autos, persona1);
+concesionaria.autosQuePuedeComprar(persona1);
