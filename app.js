@@ -1,3 +1,5 @@
+// proyecto individual nr:1 - Digital House
+
 let autos = require("./autos");
 
 let persona1 = {
@@ -72,6 +74,3 @@ let concesionaria = {
     return puede;
   },
 };
-
-// concesionaria.autosQuePuedeComprar(autos, persona1);
-concesionaria.autosQuePuedeComprar(persona1);
